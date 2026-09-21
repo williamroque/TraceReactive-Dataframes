@@ -1,0 +1,16 @@
+{
+  "id": "com.tracereactive.dataframes",
+  "name": "Dataframes",
+  "version": "1.0.0",
+  "description": "Nodes for tabular data manipulation, filtering, and analysis using Arquero.",
+  "main": "dist/index.js",
+  "permissions": ["fs:read"],
+  "ioTypes": [
+    {
+      "id": "core:dataframe",
+      "label": "Dataframe",
+      "color": "#10b981",
+      "compatibleWith": ["core:any", "core:data"]
+    }
+  ]
+}
