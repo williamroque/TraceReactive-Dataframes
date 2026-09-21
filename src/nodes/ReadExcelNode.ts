@@ -35,10 +35,6 @@ export class ReadExcelNode extends ExecuteNode {
         const filePath = properties.filePath as string;
         if (!filePath) return {};
         try {
-            // Read binary string (or buffer converted to binary string by the bridge)
-            // Wait, we passed 'binary' as encoding, which should return binary string or buffer.
-            // Node.js fs.readFile with 'binary' encoding returns a "binary" encoded string (latin1).
-            // XLSX can parse binary strings if type is set to 'binary'.
             const binaryData = await traceReactive.fs.readFile(filePath, 'binary');
             
             const workbook = XLSX.read(binaryData, { type: 'binary' });
