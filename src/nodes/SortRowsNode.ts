@@ -2,7 +2,7 @@ import { ExecuteNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
 export class SortRowsNode extends ExecuteNode {
-    readonly category = { name: 'Data', accent: 'emerald-500' } as any;
+    readonly category = { name: 'Cleaning', accent: 'amber-500' } as any;
     readonly typeId = 'sortRows';
     readonly displayName = 'Sort Rows';
     readonly visible = true;

@@ -1,10 +1,12 @@
 import { ExecuteNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-declare const traceReactive: any;
+import type { TraceReactiveAPI } from '@tracereactive/types';
+
+declare const traceReactive: TraceReactiveAPI;
 
 export class ReadCSVNode extends ExecuteNode {
-    readonly category = { name: 'Data', accent: 'emerald-500' } as any;
+    readonly category = { name: 'I/O', accent: 'sky-500' } as any;
     readonly typeId = 'readCsv';
     readonly displayName = 'Read CSV';
     readonly visible = true;

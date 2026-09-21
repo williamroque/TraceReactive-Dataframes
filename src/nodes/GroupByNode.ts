@@ -2,7 +2,7 @@ import { ExecuteNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
 export class GroupByNode extends ExecuteNode {
-    readonly category = { name: 'Data', accent: 'emerald-500' } as any;
+    readonly category = { name: 'Analytics', accent: 'purple-500' } as any;
     readonly typeId = 'groupBy';
     readonly displayName = 'Group By & Aggregate';
     readonly visible = true;

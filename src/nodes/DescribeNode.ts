@@ -2,7 +2,7 @@ import { ExecuteNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
 export class DescribeNode extends ExecuteNode {
-    readonly category = { name: 'Data', accent: 'emerald-500' } as any;
+    readonly category = { name: 'Analytics', accent: 'purple-500' } as any;
     readonly typeId = 'describe';
     readonly displayName = 'Describe (Summary)';
     readonly visible = true;

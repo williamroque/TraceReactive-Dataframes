@@ -2,10 +2,12 @@ import { ExecuteNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 import * as XLSX from 'xlsx';
 
-declare const traceReactive: any;
+import type { TraceReactiveAPI } from '@tracereactive/types';
+
+declare const traceReactive: TraceReactiveAPI;
 
 export class ReadExcelNode extends ExecuteNode {
-    readonly category = { name: 'Data', accent: 'emerald-500' } as any;
+    readonly category = { name: 'I/O', accent: 'sky-500' } as any;
     readonly typeId = 'readExcel';
     readonly displayName = 'Read Excel';
     readonly visible = true;

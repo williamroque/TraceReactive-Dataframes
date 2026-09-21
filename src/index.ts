@@ -20,9 +20,10 @@ import { DescribeNode } from './nodes/DescribeNode';
 import { WriteCSVNode } from './nodes/WriteCSVNode';
 import { WriteExcelNode } from './nodes/WriteExcelNode';
 import { WriteJSONNode } from './nodes/WriteJSONNode';
-import { TablePreviewer } from './previewers/TablePreviewer';
+import { ShowTableNode } from './nodes/ShowTableNode';
+import type { TraceReactiveAPI } from '@tracereactive/types';
 
-declare const traceReactive: any;
+declare const traceReactive: TraceReactiveAPI;
 
 const nodes = [
     new ReadCSVNode(),
@@ -46,7 +47,8 @@ const nodes = [
     new DescribeNode(),
     new WriteCSVNode(),
     new WriteExcelNode(),
-    new WriteJSONNode()
+    new WriteJSONNode(),
+    new ShowTableNode()
 ];
 
 const serializableNodes = nodes.map(n => ({
@@ -64,18 +66,42 @@ const serializableNodes = nodes.map(n => ({
 
 traceReactive.registerNodes(serializableNodes);
 
-traceReactive.registerPreviewers([
-    {
-        typeIds: ['core:dataframe'],
-        component: TablePreviewer,
-        packageId: 'com.tracereactive.dataframes'
-    }
-]);
-
 traceReactive.onEvaluateNode(async ({ typeId, inputs, properties }: any) => {
     const node = nodes.find(n => n.typeId === typeId);
     if (!node) {
         throw new Error(`Unknown node type: ${typeId}`);
     }
-    return await node.evaluate(inputs, properties);
+
+    const deserialize = (obj: any): any => {
+        if (!obj) return obj;
+        if (obj.__arqueroData) {
+            return aq.from(obj.__arqueroData);
+        }
+        if (Array.isArray(obj)) return obj.map(deserialize);
+        if (typeof obj === 'object') {
+            const res: any = {};
+            for (const k in obj) res[k] = deserialize(obj[k]);
+            return res;
+        }
+        return obj;
+    };
+
+    const serialize = (obj: any): any => {
+        if (!obj) return obj;
+        // Duck-type check for Arquero table
+        if (typeof obj.numRows === 'function' && typeof obj.columnNames === 'function') {
+            return { __arqueroData: obj.objects() };
+        }
+        if (Array.isArray(obj)) return obj.map(serialize);
+        if (typeof obj === 'object') {
+            const res: any = {};
+            for (const k in obj) res[k] = serialize(obj[k]);
+            return res;
+        }
+        return obj;
+    };
+
+    const parsedInputs = deserialize(inputs);
+    const result = await node.evaluate(parsedInputs, properties);
+    return serialize(result);
 });
