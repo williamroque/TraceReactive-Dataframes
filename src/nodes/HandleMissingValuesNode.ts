@@ -1,7 +1,7 @@
-import { ExecuteNode } from '@tracereactive/types';
+import { BaseNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-export class HandleMissingValuesNode extends ExecuteNode {
+export class HandleMissingValuesNode extends BaseNode {
     readonly category = { name: 'Cleaning', accent: 'amber-500' } as any;
     readonly typeId = 'handleMissingValues';
     readonly displayName = 'Handle Missing Values';

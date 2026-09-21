@@ -22,6 +22,7 @@ import { WriteExcelNode } from './nodes/WriteExcelNode';
 import { WriteJSONNode } from './nodes/WriteJSONNode';
 import { ShowTableNode } from './nodes/ShowTableNode';
 import type { TraceReactiveAPI } from '@tracereactive/types';
+import * as aq from 'arquero';
 
 declare const traceReactive: TraceReactiveAPI;
 

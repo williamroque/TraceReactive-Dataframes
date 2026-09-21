@@ -1,7 +1,7 @@
-import { ExecuteNode } from '@tracereactive/types';
+import { BaseNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-export class SortRowsNode extends ExecuteNode {
+export class SortRowsNode extends BaseNode {
     readonly category = { name: 'Cleaning', accent: 'amber-500' } as any;
     readonly typeId = 'sortRows';
     readonly displayName = 'Sort Rows';

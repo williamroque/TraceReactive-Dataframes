@@ -1,7 +1,7 @@
-import { ExecuteNode } from '@tracereactive/types';
+import { BaseNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-export class PivotNode extends ExecuteNode {
+export class PivotNode extends BaseNode {
     readonly category = { name: 'Analytics', accent: 'purple-500' } as any;
     readonly typeId = 'pivot';
     readonly displayName = 'Pivot (Wide to Long)';

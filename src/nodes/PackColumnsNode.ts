@@ -1,7 +1,7 @@
-import { ExecuteNode } from '@tracereactive/types';
+import { BaseNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-export class PackColumnsNode extends ExecuteNode {
+export class PackColumnsNode extends BaseNode {
     readonly category = { name: 'Wrangling', accent: 'emerald-500' } as any;
     readonly typeId = 'packColumns';
     readonly displayName = 'Pack Columns';

@@ -1,7 +1,7 @@
-import { ExecuteNode } from '@tracereactive/types';
+import { BaseNode } from '@tracereactive/types';
 import * as aq from 'arquero';
 
-export class TableInfoNode extends ExecuteNode {
+export class TableInfoNode extends BaseNode {
     readonly category = { name: 'Analytics', accent: 'purple-500' } as any;
     readonly typeId = 'tableInfo';
     readonly displayName = 'Table Info';
