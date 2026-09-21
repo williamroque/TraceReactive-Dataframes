@@ -21,6 +21,7 @@ import { WriteCSVNode } from './nodes/WriteCSVNode';
 import { WriteExcelNode } from './nodes/WriteExcelNode';
 import { WriteJSONNode } from './nodes/WriteJSONNode';
 import { ShowTableNode } from './nodes/ShowTableNode';
+import { ParseLocaleNumberNode } from './nodes/ParseLocaleNumberNode';
 import type { TraceReactiveAPI } from '@tracereactive/types';
 import * as aq from 'arquero';
 
@@ -49,7 +50,8 @@ const nodes = [
     new WriteCSVNode(),
     new WriteExcelNode(),
     new WriteJSONNode(),
-    new ShowTableNode()
+    new ShowTableNode(),
+    new ParseLocaleNumberNode()
 ];
 
 const serializableNodes = nodes.map(n => ({

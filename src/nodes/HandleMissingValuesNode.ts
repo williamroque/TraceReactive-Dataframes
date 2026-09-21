@@ -52,16 +52,16 @@ export class HandleMissingValuesNode extends BaseNode {
                 let newTable: aq.internal.Table;
                 if (cols.length > 0) {
                     // Filter where all specified columns are valid
-                    const filterArgs = cols.map(c => `aq.op.is_valid(d['${c}'])`).join(' && ');
-                    const filterFn = new Function('d', 'aq', 'op', `return ${filterArgs}`);
-                    newTable = table.filter(aq.escape((d: any) => filterFn(d, aq, aq.op)));
+                    const filterArgs = cols.map(c => `d['${c}'] != null && d['${c}'] === d['${c}']`).join(' && ');
+                    const filterFn = new Function('d', `return ${filterArgs}`);
+                    newTable = table.filter(aq.escape((d: any) => filterFn(d)));
                 } else {
                     // Arquero doesn't have dropna() out of the box, need to filter
                     // If no cols specified, drop if ANY column is invalid
                     const colNames = table.columnNames();
-                    const filterArgs = colNames.map(c => `aq.op.is_valid(d['${c}'])`).join(' && ');
-                    const filterFn = new Function('d', 'aq', 'op', `return ${filterArgs}`);
-                    newTable = table.filter(aq.escape((d: any) => filterFn(d, aq, aq.op)));
+                    const filterArgs = colNames.map(c => `d['${c}'] != null && d['${c}'] === d['${c}']`).join(' && ');
+                    const filterFn = new Function('d', `return ${filterArgs}`);
+                    newTable = table.filter(aq.escape((d: any) => filterFn(d)));
                 }
                 return { Data: newTable };
             } else {
@@ -78,8 +78,8 @@ export class HandleMissingValuesNode extends BaseNode {
                 else if (fillValue === 'false') parsedVal = false;
 
                 for (const col of targetCols) {
-                    const fn = new Function('d', 'aq', 'op', 'val', `return op.coalesce(d['${col}'], val)`);
-                    deriveObj[col] = aq.escape((d: any) => fn(d, aq, aq.op, parsedVal));
+                    const fn = new Function('d', 'val', `return (d['${col}'] != null && d['${col}'] === d['${col}']) ? d['${col}'] : val`);
+                    deriveObj[col] = aq.escape((d: any) => fn(d, parsedVal));
                 }
                 const newTable = table.derive(deriveObj);
                 return { Data: newTable };

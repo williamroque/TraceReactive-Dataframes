@@ -35,7 +35,7 @@ export class RenameColumnsNode extends BaseNode {
             for (const pair of pairs) {
                 const parts = pair.split(':').map(p => p.trim());
                 if (parts.length === 2) {
-                    renameMap[parts[1]] = parts[0]; // Arquero uses rename({ newName: oldName })
+                    renameMap[parts[0]] = parts[1]; // Arquero uses rename({ oldName: 'newName' })
                 }
             }
             
