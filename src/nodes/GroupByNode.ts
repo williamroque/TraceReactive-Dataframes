@@ -48,8 +48,8 @@ export class GroupByNode extends BaseNode {
                 if (parts.length === 2) {
                     const outName = parts[0];
                     const expr = parts[1];
-                    const fn = new Function('d', 'aq', 'op', `return ${expr}`);
-                    rollupObj[outName] = aq.escape((d: any) => fn(d, aq, aq.op));
+                    const fn = new Function('aq', 'op', `return ${expr}`);
+                    rollupObj[outName] = fn(aq, aq.op);
                 }
             }
 
