@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Nodes for tabular data manipulation, filtering, and analysis using Arquero.",
   "main": "dist/index.js",
+  "ui": "dist/ui.js",
   "permissions": ["fs:read"],
   "ioTypes": [
     {
