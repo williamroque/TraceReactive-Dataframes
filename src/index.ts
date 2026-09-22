@@ -11,6 +11,7 @@ import { SortRowsNode } from './nodes/SortRowsNode';
 import { DropDuplicatesNode } from './nodes/DropDuplicatesNode';
 import { HandleMissingValuesNode } from './nodes/HandleMissingValuesNode';
 import { ExtractColumnNode } from './nodes/ExtractColumnNode';
+import { FromArrayNode } from './nodes/FromArrayNode';
 import { PackColumnsNode } from './nodes/PackColumnsNode';
 import { GroupByNode } from './nodes/GroupByNode';
 import { MergeNode } from './nodes/MergeNode';
@@ -43,6 +44,7 @@ const nodes = [
     new DropDuplicatesNode(),
     new HandleMissingValuesNode(),
     new ExtractColumnNode(),
+    new FromArrayNode(),
     new PackColumnsNode(),
     new GroupByNode(),
     new MergeNode(),
