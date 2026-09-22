@@ -10,7 +10,9 @@ export class ReadCSVNode extends ExecuteNode {
     readonly typeId = 'readCsv';
     readonly displayName = 'Read CSV';
     readonly visible = true;
-    readonly inputs = [];
+    readonly inputs = [
+        { name: 'Path', acceptsType: 'core:path', required: false }
+    ];
     readonly outputs = [
         { name: 'Data', outputType: 'core:dataframe' }
     ];
@@ -37,7 +39,7 @@ export class ReadCSVNode extends ExecuteNode {
     ];
 
     async evaluate(inputs: Record<string, any>, properties: Record<string, any>): Promise<Record<string, any>> {
-        const filePath = properties.filePath as string;
+        const filePath = (inputs.Path as string) || (properties.filePath as string);
         if (!filePath) return {};
         try {
             const csvText = await traceReactive.fs.readFile(filePath, 'utf-8');

@@ -11,7 +11,9 @@ export class ReadExcelNode extends ExecuteNode {
     readonly typeId = 'readExcel';
     readonly displayName = 'Read Excel';
     readonly visible = true;
-    readonly inputs = [];
+    readonly inputs = [
+        { name: 'Path', acceptsType: 'core:path', required: false }
+    ];
     readonly outputs = [
         { name: 'Data', outputType: 'core:dataframe' }
     ];
@@ -32,7 +34,7 @@ export class ReadExcelNode extends ExecuteNode {
     ];
 
     async evaluate(inputs: Record<string, any>, properties: Record<string, any>): Promise<Record<string, any>> {
-        const filePath = properties.filePath as string;
+        const filePath = (inputs.Path as string) || (properties.filePath as string);
         if (!filePath) return {};
         try {
             const binaryData = await traceReactive.fs.readFile(filePath, 'binary');
