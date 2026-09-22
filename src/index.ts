@@ -23,6 +23,7 @@ import { WriteJSONNode } from './nodes/WriteJSONNode';
 import { ShowTableNode } from './nodes/ShowTableNode';
 import { ParseLocaleNumberNode } from './nodes/ParseLocaleNumberNode';
 import { TableEditorNode } from './nodes/TableEditorNode';
+import { SliceNode } from './nodes/SliceNode';
 import type { TraceReactiveAPI } from '@tracereactive/types';
 import * as aq from 'arquero';
 
@@ -53,7 +54,8 @@ const nodes = [
     new WriteJSONNode(),
     new ShowTableNode(),
     new ParseLocaleNumberNode(),
-    new TableEditorNode()
+    new TableEditorNode(),
+    new SliceNode()
 ];
 
 const serializableNodes = nodes.map(n => ({
