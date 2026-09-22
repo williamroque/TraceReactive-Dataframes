@@ -42,15 +42,20 @@ export class SliceNode extends BaseNode {
         const table = inputs['Data'] as aq.internal.Table | undefined;
         if (!table) return {};
 
-        const start = inputs['Start'] !== undefined && inputs['Start'] !== null ? Number(inputs['Start']) : Number(properties['start'] || 0);
+        const startVal = properties['start'];
+        const startProp = startVal !== undefined && startVal !== null && startVal !== '' ? Number(startVal) : 0;
+        const start = inputs['Start'] !== undefined && inputs['Start'] !== null ? Number(inputs['Start']) : startProp;
 
+        const endVal = properties['end'];
+        const endProp = endVal !== undefined && endVal !== null && endVal !== '' ? Number(endVal) : 10;
+        
         const hasEndInput = inputs['End'] !== undefined && inputs['End'] !== null;
-        const useEnd = hasEndInput || properties['useEnd'] === true;
+        const useEnd = hasEndInput || properties['useEnd'] === true || String(properties['useEnd']) === 'true';
 
         try {
             let newTable;
             if (useEnd) {
-                const end = hasEndInput ? Number(inputs['End']) : Number(properties['end'] || 0);
+                const end = hasEndInput ? Number(inputs['End']) : endProp;
                 newTable = table.slice(start, end);
             } else {
                 newTable = table.slice(start);
