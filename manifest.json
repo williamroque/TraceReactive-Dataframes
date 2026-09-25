@@ -1,7 +1,7 @@
 {
   "id": "com.tracereactive.dataframes",
   "name": "Dataframes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nodes for tabular data manipulation, filtering, and analysis using Arquero.",
   "main": "dist/index.js",
   "ui": "dist/ui.js",
