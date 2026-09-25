@@ -15,7 +15,9 @@ export class ReadExcelNode extends ExecuteNode {
         { name: 'Path', acceptsType: 'core:path', required: false }
     ];
     readonly outputs = [
-        { name: 'Data', outputType: 'core:dataframe' }
+        { name: 'Selected Sheet', outputType: 'core:dataframe' },
+        { name: 'All Sheets', outputType: 'core:dataframe-array' },
+        { name: 'Sheet Names', outputType: 'core:string-array' }
     ];
     readonly properties = [
         { 
@@ -28,7 +30,7 @@ export class ReadExcelNode extends ExecuteNode {
         {
             name: 'sheetName',
             label: 'Sheet Name',
-            type: 'text' as const,
+            type: 'string' as const,
             defaultValue: ''
         }
     ];
@@ -52,7 +54,16 @@ export class ReadExcelNode extends ExecuteNode {
             const jsonData = XLSX.utils.sheet_to_json(worksheet);
             const table = aq.from(jsonData);
             
-            return { Data: table };
+            const allSheets = workbook.SheetNames.map(name => {
+                const sheet = workbook.Sheets[name];
+                return aq.from(XLSX.utils.sheet_to_json(sheet));
+            });
+            
+            return { 
+                'Selected Sheet': table, 
+                'All Sheets': allSheets,
+                'Sheet Names': workbook.SheetNames
+            };
         } catch (err) {
             console.error('Failed to read Excel:', err);
             return {};

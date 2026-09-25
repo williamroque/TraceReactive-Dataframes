@@ -25,7 +25,7 @@ export class WriteExcelNode extends ExecuteNode {
         {
             name: 'sheetName',
             label: 'Sheet Name',
-            type: 'text' as const,
+            type: 'string' as const,
             defaultValue: 'Sheet1'
         }
     ];
@@ -45,15 +45,9 @@ export class WriteExcelNode extends ExecuteNode {
             const worksheet = XLSX.utils.json_to_sheet(jsonData);
             XLSX.utils.book_append_sheet(workbook, worksheet, properties.sheetName || 'Sheet1');
             
-            // Generate binary string
+            // Generate binary buffer
             const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
             
-            // Write to file system using standard write (might need a buffer writer in real app, but for now we write string)
-            // Note: Since ipcBridge writeFile takes string, we should use base64 or pass buffer.
-            // For now, traceReactive.fs.writeFile might corrupt binary if strictly string. 
-            // The proper way in node for buffer would be:
-            // But packages run in renderer. We can send a base64 string and have ipc bridge decode it,
-            // or pass Uint8Array if IPC supports it (Electron IPC does support Uint8Array).
             await traceReactive.fs.writeFile(filePath, excelBuffer);
             return {};
         } catch (err) {
