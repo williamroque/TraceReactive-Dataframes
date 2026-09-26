@@ -12,7 +12,8 @@ export class WriteExcelNode extends ExecuteNode {
     readonly displayName = 'Write Excel';
     readonly visible = true;
     readonly inputs = [
-        { name: 'Data', acceptsType: 'core:dataframe' }
+        { name: 'Data', acceptsType: 'core:dataframe' },
+        { name: 'Path', acceptsType: 'core:path', required: false }
     ];
     readonly outputs = [];
     readonly properties = [
@@ -32,7 +33,7 @@ export class WriteExcelNode extends ExecuteNode {
 
     async evaluate(inputs: Record<string, any>, properties: Record<string, any>): Promise<Record<string, any>> {
         const table = inputs['Data'] as aq.internal.Table | undefined;
-        const filePath = properties.filePath as string;
+        const filePath = (inputs['Path'] as string) || (properties.filePath as string);
         
         if (!table || !filePath) return {};
 

@@ -5,13 +5,19 @@
   "description": "Nodes for tabular data manipulation, filtering, and analysis using Arquero.",
   "main": "dist/index.js",
   "ui": "dist/ui.js",
-  "permissions": ["fs:read"],
+  "permissions": [
+    "fs:read",
+    "fs:write"
+  ],
   "ioTypes": [
     {
       "id": "core:dataframe",
       "label": "Dataframe",
       "color": "#10b981",
-      "compatibleWith": ["core:any", "core:data"]
+      "compatibleWith": [
+        "core:any",
+        "core:data"
+      ]
     }
   ]
 }
